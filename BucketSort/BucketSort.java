@@ -75,7 +75,6 @@ public class BucketSort {
 
         int[] sortedArray = bucketSort(data);
         System.out.printf("Sorted array:%n%s%n%n", Arrays.toString(sortedArray)); // display array
-        
         //test to make sure sorted correctly
         for(int i=0; i<sortedArray.length-1; i++){
             if(sortedArray[i]>sortedArray[i+1]){
@@ -84,3 +83,4 @@ public class BucketSort {
         }
     }
 }
+
