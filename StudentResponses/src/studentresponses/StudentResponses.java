@@ -6,13 +6,14 @@ public class StudentResponses {
     public static Formatter output;
     
     public static void main(String[] args) {
-        
     openFile();
     addResponses();
     closeFile();
     
     }
     
+    // Method creates a formatter object output that will write to the file
+    // numbers.txt
     public static void openFile()
     {
         try 
@@ -26,6 +27,8 @@ public class StudentResponses {
         }
     }
     
+    // This method allows user to input 'ratings' to a survey and writes it to 
+    // the numbers.txt file until EOF indicator is input.
     public static void addResponses()
     {
         Scanner s = new Scanner(System.in);
@@ -46,6 +49,7 @@ public class StudentResponses {
         } 
     }
     
+    // Method closes the file
     public static void closeFile()
     {
         if (output != null)

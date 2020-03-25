@@ -5,8 +5,12 @@ public class StudentPoll
 {
    public static void main(String[] args)
    {
+       // Create new file object text from numbers.txt
        File text = new File("numbers.txt");
        int[] frequency = new int[6]; // array of frequency counters
+       
+       // Create scanner reading input from text that keeps strack of responses
+       // as long as they're within the allowable rating
        try
        {
        Scanner s = new Scanner(text);
@@ -39,6 +43,8 @@ public class StudentPoll
            System.out.println(e);
        }   
       
+       // Creating a formatter object out that writes the frequency array to the
+       // file output.txt
        try {
            Formatter out = new Formatter("output.txt");
            out.format("%s%10s%n", "Rating", "Frequency");
