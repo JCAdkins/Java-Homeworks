@@ -30,3 +30,6 @@ hs_err_pid*
 
 # and don't ignore files ending with ".java"
 !*.java
+
+# and don't ignore files ending with ".fxml"
+!*.fxml
