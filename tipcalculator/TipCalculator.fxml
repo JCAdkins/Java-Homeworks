@@ -27,7 +27,7 @@
 <TextField fx:id="amountTextField" onAction="#amountTextFieldChanged" GridPane.columnIndex="1" />
 <TextField fx:id="tipTextField" editable="false" focusTraversable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 <TextField fx:id="totalTextField" editable="false" focusTraversable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-<Slider fx:id="tipPercentageSlider" blockIncrement="5.0" majorTickUnit="5.0" max="30.0" minorTickCount="5" value="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+<Slider fx:id="tipPercentageSlider" blockIncrement="5.0" majorTickUnit="5.0" max="30.0" minorTickCount="4" showTickLabels="true" snapToTicks="true" value="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 </children>
 <padding>
 <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
