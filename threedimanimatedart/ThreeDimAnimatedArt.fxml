@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.PerspectiveCamera?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Box?>
+<?import javafx.scene.shape.Cylinder?>
+<?import javafx.scene.shape.Sphere?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="threedimanimatedart.ThreeDimAnimatedArtController">
+   <left>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TitledPane animated="false" layoutX="-22.0" layoutY="-6.0" text="Camera Angles">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox layoutX="50.0" layoutY="-10.0" spacing="8.0">
+                                 <children>
+                                    <RadioButton fx:id="paralellCARadioButton" mnemonicParsing="false" onAction="#parallelRadioButtonSelected" text="Parallel">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="toggleGroup" />
+                                       </toggleGroup></RadioButton>
+                                    <RadioButton fx:id="perspectiveCARadioButton" mnemonicParsing="false" onAction="#perspectiveRadioButtonSelected" text="Perspective" toggleGroup="$toggleGroup" />
+                                 </children>
+                                 <padding>
+                                    <Insets top="14.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TitledPane animated="false" layoutX="-22.0" layoutY="-6.0" text="Light Effects">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox layoutX="50.0" layoutY="-10.0" spacing="8.0">
+                                 <children>
+                                    <RadioButton fx:id="ambientLERadioButton" mnemonicParsing="false" onAction="#ambientRadioButtonSelected" text="Ambient" toggleGroup="$toggleGroup" />
+                                    <RadioButton fx:id="pointLERadioButton" mnemonicParsing="false" onAction="#pointRadioButtonSelected" text="Point" toggleGroup="$toggleGroup" />
+                                 </children>
+                                 <padding>
+                                    <Insets top="14.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </left>
+   <center>
+      <Pane fx:id="displayPane" onMouseClicked="#displayPaneClicked" scaleShape="false">
+         <children>
+            <Cylinder fx:id="cylinder" height="100" layoutX="220.0" layoutY="72.0" radius="20" rotate="180.0" />
+            <Box fx:id="box" depth="100" height="100" layoutX="220.0" layoutY="191.0" width="100" />
+            <Sphere fx:id="sphere" layoutX="220.0" layoutY="316.0" radius="50" />
+            <PerspectiveCamera farClip="1000.0" fieldOfView="33.7" nearClip="1.0" verticalFieldOfView="false" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
