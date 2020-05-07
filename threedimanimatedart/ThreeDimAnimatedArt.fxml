@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.PerspectiveCamera?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,65 +17,106 @@
 <?import javafx.scene.shape.Cylinder?>
 <?import javafx.scene.shape.Sphere?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="threedimanimatedart.ThreeDimAnimatedArtController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mouseClicked" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ThreeDimAnimatedArtController">
    <left>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane>
                <children>
-                  <TitledPane animated="false" layoutX="-22.0" layoutY="-6.0" text="Camera Angles">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <SplitPane dividerPositions="0.5" layoutX="-1.0" layoutY="-2.0" orientation="VERTICAL">
+                    <items>
+                      <AnchorPane>
                            <children>
-                              <VBox layoutX="50.0" layoutY="-10.0" spacing="8.0">
-                                 <children>
-                                    <RadioButton fx:id="paralellCARadioButton" mnemonicParsing="false" onAction="#parallelRadioButtonSelected" text="Parallel">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="toggleGroup" />
-                                       </toggleGroup></RadioButton>
-                                    <RadioButton fx:id="perspectiveCARadioButton" mnemonicParsing="false" onAction="#perspectiveRadioButtonSelected" text="Perspective" toggleGroup="$toggleGroup" />
-                                 </children>
-                                 <padding>
-                                    <Insets top="14.0" />
-                                 </padding>
-                              </VBox>
+                              <TitledPane animated="false" text="Light Effects">
+                                <content>
+                                  <AnchorPane>
+                                       <children>
+                                          <VBox layoutX="50.0" layoutY="-10.0" spacing="8.0">
+                                             <children>
+                                                <RadioButton fx:id="ambientLERadioButton" mnemonicParsing="false" onAction="#ambientRadioButtonSelected" text="Ambient">
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="toggleGroup" />
+                                                   </toggleGroup>
+                                                </RadioButton>
+                                                <RadioButton fx:id="pointLERadioButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#pointRadioButtonSelected" text="Point           " toggleGroup="$toggleGroup" />
+                                                <RadioButton fx:id="noneLERadioButton" mnemonicParsing="false" onAction="#noneLightRadioButtonSelected" selected="true" text="None" toggleGroup="$toggleGroup" />
+                                             </children>
+                                             <padding>
+                                                <Insets top="14.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
                            </children>
                         </AnchorPane>
-                    </content>
-                  </TitledPane>
+                      <AnchorPane>
+                           <children>
+                              <TitledPane animated="false" text="Camera Angles">
+                                <content>
+                                  <AnchorPane>
+                                       <children>
+                                          <VBox layoutX="50.0" layoutY="-10.0" spacing="8.0">
+                                             <children>
+                                                <RadioButton fx:id="paralellCARadioButton" mnemonicParsing="false" onAction="#parallelRadioButtonSelected" text="Parallel" toggleGroup="$toggleGroup" />
+                                                <RadioButton fx:id="perspectiveCARadioButton" mnemonicParsing="false" onAction="#perspectiveRadioButtonSelected" text="Perspective" toggleGroup="$toggleGroup" />
+                                             </children>
+                                             <padding>
+                                                <Insets top="14.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane>
                <children>
-                  <TitledPane animated="false" layoutX="-22.0" layoutY="-6.0" text="Light Effects">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox layoutX="50.0" layoutY="-10.0" spacing="8.0">
-                                 <children>
-                                    <RadioButton fx:id="ambientLERadioButton" mnemonicParsing="false" onAction="#ambientRadioButtonSelected" text="Ambient" toggleGroup="$toggleGroup" />
-                                    <RadioButton fx:id="pointLERadioButton" mnemonicParsing="false" onAction="#pointRadioButtonSelected" text="Point" toggleGroup="$toggleGroup" />
-                                 </children>
-                                 <padding>
-                                    <Insets top="14.0" />
-                                 </padding>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </TitledPane>
+                  <Pane fx:id="cameraPane" opacity="0.0" prefHeight="162.0" prefWidth="171.0">
+                     <children>
+                        <Label fx:id="rotationAngleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="73.0" text="Rotation Angle:" />
+                        <Button fx:id="cameraViewButton" layoutX="62.0" layoutY="128.0" mnemonicParsing="false" onAction="#cameraViewButtonClicked" text="View" />
+                        <TextField fx:id="rotationAngleTextField" layoutX="10.0" layoutY="96.0">
+                           <padding>
+                              <Insets top="8.0" />
+                           </padding>
+                        </TextField>
+                        <CheckBox fx:id="checkBoxYAxis" layoutX="52.0" layoutY="26.0" mnemonicParsing="false" onAction="#selectedYAxis" text="Y-Axis" />
+                        <CheckBox fx:id="checkBoxZAxis" layoutX="52.0" layoutY="47.0" mnemonicParsing="false" onAction="#selectedZAxis" text="Z-Axis" />
+                        <CheckBox fx:id="checkBoxXAxis" layoutX="52.0" layoutY="5.0" mnemonicParsing="false" onAction="#selectedXAxis" text="X-Axis" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="lightPane" layoutX="5.0" layoutY="5.0" opacity="0.0">
+                     <children>
+                        <Label fx:id="rotationAngleLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="73.0" text="Rotation Angle:" />
+                        <Button fx:id="lightViewButton" layoutX="62.0" layoutY="128.0" mnemonicParsing="false" onAction="#lightViewButtonClicked" text="View" />
+                        <TextField fx:id="lightRotationAngleTextField" layoutX="10.0" layoutY="96.0">
+                           <padding>
+                              <Insets top="8.0" />
+                           </padding>
+                        </TextField>
+                        <CheckBox fx:id="lightCheckBoxYAxis" layoutX="52.0" layoutY="26.0" mnemonicParsing="false" onAction="#selectedYAxis" text="Y-Axis" />
+                        <CheckBox fx:id="lightCheckBoxZAxis" layoutX="52.0" layoutY="47.0" mnemonicParsing="false" onAction="#selectedZAxis" text="Z-Axis" />
+                        <CheckBox fx:id="lightCheckBoxXAxis" layoutX="52.0" layoutY="5.0" mnemonicParsing="false" onAction="#selectedXAxis" text="X-Axis" />
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
    </left>
    <center>
-      <Pane fx:id="displayPane" onMouseClicked="#displayPaneClicked" scaleShape="false">
+      <Pane fx:id="displayPane" maxHeight="400.0" maxWidth="440.0" minHeight="400.0" minWidth="440.0" onKeyPressed="#keyPressed" onMouseClicked="#displayPaneClicked" prefHeight="400.0" prefWidth="440.0" scaleShape="false">
          <children>
-            <Cylinder fx:id="cylinder" height="100" layoutX="220.0" layoutY="72.0" radius="20" rotate="180.0" />
+            <Cylinder fx:id="cylinder" height="100" layoutX="220.0" layoutY="191.0" radius="20" />
             <Box fx:id="box" depth="100" height="100" layoutX="220.0" layoutY="191.0" width="100" />
-            <Sphere fx:id="sphere" layoutX="220.0" layoutY="316.0" radius="50" />
-            <PerspectiveCamera farClip="1000.0" fieldOfView="33.7" nearClip="1.0" verticalFieldOfView="false" />
+            <Sphere fx:id="sphere" layoutX="220.0" layoutY="191.0" radius="50" />
          </children>
       </Pane>
    </center>
