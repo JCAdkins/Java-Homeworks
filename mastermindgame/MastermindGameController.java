@@ -259,10 +259,6 @@ public class MastermindGameController {
         codeColors[1] = random.nextInt(4) + 1;
         codeColors[2] = random.nextInt(4) + 1;
         codeColors[3] = random.nextInt(4) + 1;
-        codeColors[0] = 3;
-        codeColors[1] = 1;
-        codeColors[2] = 4;
-        codeColors[3] = 3;
     }
     
     public int[] setAll(int[] intArray, int value){
