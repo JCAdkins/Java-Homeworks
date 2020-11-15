@@ -126,12 +126,7 @@ public class Student implements Comparable<Student> {
     public int compareTo(Student pStudent){
 
 
-        if (getLastName().compareTo(pStudent.getLastName()) < 0)
-            return -1;
-        else if (getLastName().compareTo(pStudent.getLastName()) == 0)
-            return 0;
-        else
-            return 1;
+        return Integer.compare(getLastName().compareTo(pStudent.getLastName()), 0);
 
 
 
@@ -316,13 +311,13 @@ public class Student implements Comparable<Student> {
      */
     @Override
     public String toString() {
-        String result = getLastName() + " " + getFirstName() + " ";
+        StringBuilder result = new StringBuilder(getLastName() + " " + getFirstName() + " ");
         for (Integer exam : getExamList()) {
-            result += exam + " ";
+            result.append(exam).append(" ");
         }
         for (Integer hw : getHomeworkList()) {
-            result += hw + " ";
+            result.append(hw).append(" ");
         }
-        return result.trim();
+        return result.toString().trim();
     }
 }

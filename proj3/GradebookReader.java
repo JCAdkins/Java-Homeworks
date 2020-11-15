@@ -24,7 +24,7 @@ public class GradebookReader  {
     /**
      * mIn is used to read from the input file.
      */
-    private Scanner mIn;
+    private final Scanner mIn;
 
     /**
      * Attempts to open the gradebook file for reading. If successful, mIn will be used to read

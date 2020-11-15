@@ -50,9 +50,13 @@ public class View extends JFrame implements ActionListener {
     /*
      * Declare GUI related instance variables for the buttons and text fields.
      */
-    private JButton mClearButton, mExitButton, mSaveButton, mSearchButton;
-    private JTextField[] mExamText, mHomeworkText;
-    private JTextField mStudentName;
+    private final JButton mClearButton;
+    private final JButton mExitButton;
+    private final JButton mSaveButton;
+    private final JButton mSearchButton;
+    private final JTextField[] mExamText;
+    private final JTextField[] mHomeworkText;
+    private final JTextField mStudentName;
     
     /**
      * View()
@@ -68,6 +72,7 @@ public class View extends JFrame implements ActionListener {
          * Save a reference to the Main object pMain into instance var mMain by calling setMain().
          */
         setMain(pMain);
+
 
         // PSEUDOCODE:
         // Create a JPanel named panelSearch which uses the FlowLayout
@@ -98,7 +103,7 @@ public class View extends JFrame implements ActionListener {
         panelHomework.add(new JLabel("Homework: "));
         mHomeworkText = new JTextField[Main.getNumHomeworks()];
 
-        for (int i = 0; i < mHomeworkText.length - 1; i++ ){
+        for (int i = 0; i < mHomeworkText.length; i++ ){
             mHomeworkText[i] = new JTextField(Main.getNumHomeworks());
             panelHomework.add(mHomeworkText[i]);
         }
@@ -108,10 +113,10 @@ public class View extends JFrame implements ActionListener {
         // panelHomework panel above.
         // Note: DO NOT HARDCODE THE NUMBER OF EXAMS
         JPanel panelExam = new JPanel(new FlowLayout());
-        panelExam.add(new JLabel("Student Name: "));
+        panelExam.add(new JLabel("Exam: "));
         mExamText = new JTextField[Main.getNumExams()];
 
-        for (int i = 0; i < mExamText.length - 1; i++){
+        for (int i = 0; i < mExamText.length; i++){
             mExamText[i] = new JTextField(Main.getNumExams());
             panelExam.add(mExamText[i]);
         }
@@ -216,18 +221,19 @@ public class View extends JFrame implements ActionListener {
      * end actionPerformed
      */
     public void actionPerformed(ActionEvent pEvent){
-
-
         if (pEvent.getSource().equals(mSearchButton)){
             clearNumbers();
-            String lastName = mStudentName.getText();
-            if (lastName==null /*|| lastName.compareTo("")*/)
+            String[] name = mStudentName.getText().split("\\s?[, ]\\s?"); //Splits the student's name along either whitespace, commas, or commas+whitespace
+            String lastName = name[0];
+            if (lastName.equals(""))
                 messageBox("Please enter the student's last name.");
             else
                 Student.setCurrStudent(getMain().search(lastName));
 
-            if (Student.getCurrStudent()==null)
+            if (Student.getCurrStudent()==null) {
                 messageBox("Student not found. Try again.");
+                mStudentName.setText("");
+            }
             else
                 displayStudent(Student.getCurrStudent());
         }
@@ -238,12 +244,12 @@ public class View extends JFrame implements ActionListener {
         else if (pEvent.getSource().equals(mClearButton))
             clear();
         else if (pEvent.getSource().equals(mExitButton)){
-            if (Student.getCurrStudent()!=null){
-                saveStudent(Student.getCurrStudent());
-                getMain().exit();
-            }
-        }
 
+            if (Student.getCurrStudent()!=null)
+                saveStudent(Student.getCurrStudent());
+
+            getMain().exit();
+        }
     }
 
     /**
@@ -277,11 +283,11 @@ public class View extends JFrame implements ActionListener {
      * Main.
      */
     private void clearNumbers(){
-        for(int i = 0; i < mHomeworkText.length - 1; i++){
-            mHomeworkText[i].setText("");
+        for (JTextField jTextField : mHomeworkText) {
+            jTextField.setText("");
         }
-        for(int i = 0; i < mExamText.length - 1; i++){
-            mExamText[i].setText("");
+        for (JTextField jTextField : mExamText) {
+            jTextField.setText("");
         }
     }
     
@@ -307,15 +313,19 @@ public class View extends JFrame implements ActionListener {
      * Main.
     */
     private void displayStudent(Student pStudent){
-        for (int i =0; i < Main.getNumHomeworks() - 1; i++){
+
+        mStudentName.setText(pStudent.getFullName());
+
+        for (int i =0; i < Main.getNumExams() ; i++) {
+            int exam = pStudent.getExam(i);
+            String examStr = Integer.toString(exam);
+            mExamText[i].setText(examStr);
+        }
+
+        for (int i = 0; i < Main.getNumHomeworks(); i++){
             int hw = pStudent.getHomework(i);
             String hwstr = Integer.toString(hw);
             mHomeworkText[i].setText(hwstr);
-        }
-        for (int i =0; i < Main.getNumExams() - 1; i++){
-            int exam = pStudent.getExam(i);
-            String examStr = Integer.toString(exam);
-            mHomeworkText[i].setText(examStr);
         }
     }
 
@@ -363,15 +373,15 @@ public class View extends JFrame implements ActionListener {
      * DO NOT HARDCODE THE NUMBER OF HOMEWORKS AND EXAMS
      */
     private void saveStudent(Student pStudent){
-        for (int i = 0; i < Main.getNumHomeworks() - 1; i++){
+        for (int i = 0; i < Main.getNumHomeworks(); i++){
             String hwstr = mHomeworkText[i].getText();
             int hw = Integer.parseInt(hwstr);
             pStudent.setHomework(i, hw);
         }
-        for (int i = 0; i < Main.getNumExams() - 1; i++){
-            String examStr = mHomeworkText[i].getText();
+        for (int i = 0; i < Main.getNumExams(); i++){
+            String examStr = mExamText[i].getText();
             int exam = Integer.parseInt(examStr);
-            pStudent.setHomework(i, exam);
+            pStudent.setExam(i, exam);
         }
     }
     
@@ -380,6 +390,5 @@ public class View extends JFrame implements ActionListener {
      */ 
     private void setMain(Main pMain) {
         mMain = pMain;
-    }    
-
+    }
 }

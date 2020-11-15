@@ -136,7 +136,6 @@ public class Roster /*implements Iterable*/ {
      */
     public void sortRoster(){
         Sorter.sort(getStudentList());
-        System.out.println("Pause");
     }
 
     /**

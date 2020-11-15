@@ -5,10 +5,8 @@ import java.util.ArrayList;
 public class Searcher {
     public static int search(ArrayList<Student> pList, String pKey){
 
-        if (pList.size() == 1){
-            if (pList.get(0).getLastName().equals(pKey))
-                return 0;
-            else
+        // If list size is zero return -1
+        if (pList.size() == 0){
                 return -1;
         }
 
@@ -21,7 +19,7 @@ public class Searcher {
                     return m;
 
                 // If x greater, ignore left half
-                if (pList.get(m).getLastName().compareTo(pKey) > 0)
+                if (pList.get(m).getLastName().compareTo(pKey) < 0)
                     l = m + 1;
 
                     // If x is smaller, ignore right half
@@ -35,7 +33,6 @@ public class Searcher {
 
 
         }
-
 
 
 }
