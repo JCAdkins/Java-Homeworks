@@ -1,13 +1,15 @@
-//**************************************************************************************************************
+//**************************************************************************************************
 // CLASS: View
 //
+// DESCRIPTION
+// The View class for Project 4. Class handles the GUI
+//
 // AUTHOR
-// Kevin R. Burger (burgerk@asu.edu)
-// Computer Science & Engineering Program
-// Fulton Schools of Engineering
-// Arizona State University, Tempe, AZ 85287-8809
-// Web: http://www.devlang.com
-//**************************************************************************************************************
+// GROUP: 26
+// AUTHOR 1: Jordan Adkins, jcadkin2, jcadkin2@asu.edu
+// Author 2: Cody Surwic, csurwic, csurwic@asu.edu
+// AUTHOR 3: Samantha Houghton, slhought, slhought@asu.edu
+//**************************************************************************************************
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -119,11 +121,20 @@ public class View extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent pEvent) {
         if (pEvent.getSource().equals(mClearButton))
-            clear();
+            try{
+                clear();
+            }catch(Exception e){
+                messageBox(e.toString());
+            }
         else if (pEvent.getSource().equals(mEvalButton))
-            evaluate();
+            try{
+                if (!mInputText.getText().equals(""))
+                    evaluate();
+            }catch (Exception e){
+                messageBox(e.toString());
+            }
         else if (pEvent.getSource().equals(mExitButton))
-            System.exit(-1);
+            mMain.exit();
     }
 
     /**

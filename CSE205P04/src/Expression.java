@@ -1,13 +1,15 @@
-//**************************************************************************************************************
+//**************************************************************************************************
 // CLASS: Expression
 //
+// DESCRIPTION
+// The Expression class for Project 4. Class handles and evaluates the expression given to it.
+//
 // AUTHOR
-// Kevin R. Burger (burgerk@asu.edu)
-// Computer Science & Engineering Program
-// Fulton Schools of Engineering
-// Arizona State University, Tempe, AZ 85287-8809
-// http://www.devlang.com
-//**************************************************************************************************************
+// GROUP: 26
+// AUTHOR 1: Jordan Adkins, jcadkin2, jcadkin2@asu.edu
+// Author 2: Cody Surwic, csurwic, csurwic@asu.edu
+// AUTHOR 3: Samantha Houghton, slhought, slhought@asu.edu
+//**************************************************************************************************
 
 /**
  * Represents an infix expression to be evaluated.
@@ -122,9 +124,11 @@ public class Expression {
                 operatorStack.push(operator);
             }
         }while(!mTokenQueue.isEmpty());
-        do{
+        while(!operatorStack.isEmpty()){
+            // After we have removed all tokens from the token queue call topEval to evaluate remaining operands and
+            // operator to get final solution
             topEval(operatorStack, operandStack);
-        }while(!operatorStack.isEmpty());
+        }
         return operandStack.pop().getValue();
     }
 
@@ -197,13 +201,16 @@ public class Expression {
     // the NegOperator's evaluate() return value) and push it onto operandStack; else do a binary, two, part evaluation
     // (add/sub, mult/div also their evaluate() return value) then push that result back onto operandStack
     private void topEval(Stack<Operator> pOperatorStack, Stack<Operand> pOperandStack){
-        Operand right = pOperandStack.pop();
-        Operator operator = pOperatorStack.pop();
-        if (operator instanceof UnaryOperator) {
+            Operand right = pOperandStack.pop();
+            Operator operator = pOperatorStack.pop();
+
+        if (operator instanceof UnaryOperator) { // If operator is negation
             pOperandStack.push(((UnaryOperator) operator).evaluate(right));
-        }else{
-            Operand left = pOperandStack.pop();
-            pOperandStack.push(((BinaryOperator) operator).evaluate(left, right));
+        }else{ // Reached if operator is a binary operator, i.e. mult/div, add/sub
+            Operand left = pOperandStack.pop(); // Since its binary operator we must pop off the matching operand
+            // from the operand stack
+            pOperandStack.push(((BinaryOperator) operator).evaluate(left, right)); //Evaluates the expression with
+            // the two matching operands, left/right, and the correct operator
         }
     }
 }

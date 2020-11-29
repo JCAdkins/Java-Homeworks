@@ -1,13 +1,15 @@
-//***************************************************************************************************************************
+//**************************************************************************************************
 // CLASS: Main
 //
+// DESCRIPTION
+// The Main class for Project 4. Initializes the View gui.
+//
 // AUTHOR
-// Kevin R. Burger (burgerk@asu.edu)
-// Computer Science & Engineering Program
-// Fulton Schools of Engineering
-// Arizona State University, Tempe, AZ 85287-8809
-// Web: http://www.devlang.com
-//***************************************************************************************************************************
+// GROUP: 26
+// AUTHOR 1: Jordan Adkins, jcadkin2, jcadkin2@asu.edu
+// Author 2: Cody Surwic, csurwic, csurwic@asu.edu
+// AUTHOR 3: Samantha Houghton, slhought, slhought@asu.edu
+//**************************************************************************************************
 import javax.swing.JFrame;
 
 /**
