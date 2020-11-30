@@ -95,7 +95,7 @@ public class Expression {
     public Double evaluate(){
         Stack<Operator> operatorStack = new Stack<>();
         Stack<Operand> operandStack = new Stack<>();
-        do{
+        while(!mTokenQueue.isEmpty()){
             // Get next token in line
             Token token = getTokenQueue().dequeue();
             // If token is an operand push it onto operandStack
@@ -106,10 +106,11 @@ public class Expression {
                 operatorStack.push((LeftParen) token);
             // If token is a right parenthesis
             else if (token instanceof RightParen) {
-                do{
+                while(!(operatorStack.peek() instanceof LeftParen)){
                     // Call topEval (see topEval comments for how it works)
                     topEval(operatorStack, operandStack);
-                }while(!(operatorStack.peek() instanceof LeftParen)); //This will result in false if the next operator
+                    var equality = !(operatorStack.peek() instanceof LeftParen);
+                } //This will result in false if the next operator
                 // is the matching left parenthesis
                 operatorStack.pop(); // This pops the left parenthesis off the operator stack because its no longer needed
             }
@@ -123,7 +124,7 @@ public class Expression {
                 // This pushes the appropriate operator back onto the stack if it needs to be
                 operatorStack.push(operator);
             }
-        }while(!mTokenQueue.isEmpty());
+        }
         while(!operatorStack.isEmpty()){
             // After we have removed all tokens from the token queue call topEval to evaluate remaining operands and
             // operator to get final solution
@@ -201,12 +202,13 @@ public class Expression {
     // the NegOperator's evaluate() return value) and push it onto operandStack; else do a binary, two, part evaluation
     // (add/sub, mult/div also their evaluate() return value) then push that result back onto operandStack
     private void topEval(Stack<Operator> pOperatorStack, Stack<Operand> pOperandStack){
-            Operand right = pOperandStack.pop();
-            Operator operator = pOperatorStack.pop();
+        Operand right = pOperandStack.pop();
+        Operator operator = pOperatorStack.pop();
 
         if (operator instanceof UnaryOperator) { // If operator is negation
             pOperandStack.push(((UnaryOperator) operator).evaluate(right));
-        }else{ // Reached if operator is a binary operator, i.e. mult/div, add/sub
+        }
+        else if(operator instanceof BinaryOperator){ // Reached if operator is a binary operator, i.e. mult/div, add/sub
             Operand left = pOperandStack.pop(); // Since its binary operator we must pop off the matching operand
             // from the operand stack
             pOperandStack.push(((BinaryOperator) operator).evaluate(left, right)); //Evaluates the expression with
